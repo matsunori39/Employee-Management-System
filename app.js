@@ -1,4 +1,5 @@
 const express = require('express');
+// For support of MySQL 8.0's default authentication method (caching_sha2_password) in Node.js, use 'mysql2'
 const mysql = require('mysql2');
 
 const app = express();
@@ -7,26 +8,18 @@ const app = express();
 app.use(express.static('public'));
 
 const connection = mysql.createConnection({
-  host: '127.0.0.1',
+  host: '127.0.0.1',  // Change from 'localhost'
   user: 'root',
   password: 'R00tMysq1',
   database: 'employee'
-});
-
-connection.connect((err) => {
-  if (err) {
-    console.log('error connecting: ' + err.stack);
-    return;
-  }
-  console.log('success');
 });
 
 app.get('/', (req, res) => {
   connection.query(
     'SELECT * FROM basics',
     (error, results) => {
-      console.log(results);
-      res.render('hello.ejs');
+      // console.log(results);
+      res.render('index.ejs', {items: results});
     }
   );
 });
