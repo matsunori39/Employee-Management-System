@@ -12,7 +12,7 @@ Simple three-screen employee management system.
 
 ### Task management screen
 
-- [ ] View a list of employees
+- [x] View a list of employees
 
 - [ ] UI for adding employee information
 
