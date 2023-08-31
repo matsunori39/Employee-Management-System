@@ -33,7 +33,6 @@ a:hover {
   transition: all 0.3s ease;
 }
 
-
 h1, h2, h3, h4, h5, h6, p {
   margin: 0;
 }
@@ -42,14 +41,18 @@ h1 {
   font-weight: 600;
 }
 
+/* input {
+  font-family: inherit;
+  font-size: 100%;
+} */
 
 /* top ================================ */
-.top-wrapper {
+/* .top-wrapper {
   max-width: 1200px;
   min-width: 920px;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-content: center;
   margin: 0 auto;
   padding: 60px;
 }
@@ -86,7 +89,7 @@ h1 {
   text-align: center;
   line-height: 45px;
   font-weight: 600;
-  color: #42cea9;;
+  color: #42cea9;
   background-color: #ffffff;
   border: 2px solid #58d2b2;
   border-radius: 2px;
@@ -94,23 +97,22 @@ h1 {
 
 .top-detail .index-button:hover {
   color: #ffffff;
-  background-color:  #58d2b2;
-}
+  background-color: #58d2b2;
+} */
 
-
-.index-button {
+/* .index-button {
   cursor: pointer;
-}
+} */
 
-.top-image {
+/* .top-image {
   width: 64%;
   text-align: center;
   overflow: hidden;
-}
+} */
 
-.top-image img {
+/* .top-image img {
   width: 88%;
-}
+} */
 
 /* header ================================ */
 header {
@@ -148,13 +150,48 @@ header {
   margin-bottom: 12px;
 }
 
+/* .container-header .new-button {
+  background: #80bcff;
+  border-radius: 30px;
+  font-size: 14px;
+  width: 120px;
+  height: 45px;
+  line-height: 43px;
+  text-align: center;
+  color: #ffffff;
+  border: 2px solid #80bcff;
+} */
+
+/* .container-header .new-button:hover {
+  background-color: #ffffff;
+  color: #80bcff;
+  transition: all 0.3s ease;
+} */
+
+/* .cancel-button {
+  margin-top: 16px;
+  margin-left: 2px;
+  font-weight: 600;
+  color: #bac6d3;
+  text-decoration: underline;
+  display: inline-block;
+} */
+
+/* .cancel-button:hover {
+  color: #80bcff;
+} */
+
 .container-header h1 {
   font-size: 24px;
 }
 
 /* index ================================ */
-.table-head {
-  display: flex;
+table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+thead {
   background-color: #b7cadc;
   border-radius: 2px 2px 0 0;
   height: 44px;
@@ -168,25 +205,22 @@ header {
   text-align: center;
 }
 
-.table-body {
+tbody {
   background-color: #ffffff;
 }
 
-.table-body li {
+tr {
   height: 72px;
-  border: 1px solid #f0f4f9;
-  border-top: none;
-  line-height: 74px;
-  display: flex;
 }
 
-.table-body .id-column {
+td .id-column {
   font-size: 16px;
   color: #bac6d3;
 }
 
-.table-body .name-column {
+td .name-column, td .department-column {
   font-size: 14px;
   font-weight: 500;
   color: #8491a5;
 }
+
