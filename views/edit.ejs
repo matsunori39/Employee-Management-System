@@ -10,15 +10,15 @@
   </header>
   <div class="container">
     <div class="container-header">
-      <h1>Additional employee</h1>
+      <h1>Edit employee<h1>
     </div>
     <div class="employee-form-wrapper">
-      <form action="/create" method="post">
+      <form action="/update/<%= item.id %>" method="post">
         <p class="form-label">Name</p>
-        <input type="text" name="employeeName">
+        <input type="text" value="<%= item.name %>" name="itemName">
         <p class="form-label">Department</p>
-        <input type="text" name="departmentName">
-        <input type="submit" value="Submit">
+        <input type="text" value="<%= item.department %>" name="itemDepartment">
+        <input type="submit" value="Update">
       </form>
     </div>
     <a href="/" class="cancel-button">Cancel</a>
