@@ -14,9 +14,9 @@ Simple three-screen employee management system.
 
 - [x] View a list of employees
 
-- [ ] UI for adding employee information
+- [x] UI for adding employee information
 
-- [ ] Go to edit screeen from any employee information
+- [x] Go to edit screeen from any employee information
 
 - [ ] Search by employee name
 
