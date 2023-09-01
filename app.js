@@ -6,6 +6,7 @@ const app = express();
 // const port = 3000;
 
 app.use(express.static('public'));
+app.use(express.urlencoded({extended: false}));
 
 const connection = mysql.createConnection({
   host: '127.0.0.1',  // Change from 'localhost'
@@ -24,8 +25,18 @@ app.get('/', (req, res) => {
   );
 });
 
-app.get('/top', (req, res) => {
-  res.render('top.ejs');
+app.get('/new', (req, res) => {
+  res.render('new.ejs');
+});
+
+app.post('/create', (req, res) => {
+  connection.query(
+    'INSERT INTO basics (name, department) VALUES (?, ?)',
+    [ req.body.employeeName, req.body.departmentName ],
+    (error, results) => {
+      res.redirect('/');
+    }
+  );
 });
 
 app.listen(3000);
