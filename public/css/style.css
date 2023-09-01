@@ -136,7 +136,7 @@ header {
 
 /* container ================================ */
 .container {
-  width: 80%;
+  width: 70%;
   min-width: 360px;
   max-width: 720px;
   margin: 0 auto;
@@ -186,42 +186,66 @@ header {
 }
 
 /* index ================================ */
-table {
-  table-layout: fixed;
-  width: 100%;
-}
-
-thead {
+.table-head {
+  display: flex;
   background-color: #b7cadc;
   border-radius: 2px 2px 0 0;
   height: 44px;
   font-size: 16px;
-  line-height: 46px;
+  line-height: 45px;
   color: #ffffff;
 }
 
 .id-column {
-  width: 72px;
+  width: 90px;
   text-align: center;
 }
 
-tbody {
+.name-column {
+  width: 20vw;
+}
+
+.table-body {
   background-color: #ffffff;
 }
 
-tr {
+.table-body li {
   height: 72px;
+  border: 1px solid #f0f4f9;
+  border-top: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
 }
 
-td .id-column {
+.table-body .id-column {
   font-size: 16px;
   color: #bac6d3;
 }
 
-td .name-column, td .department-column {
+.table-body .name-column, .table-body .department-column {
   font-size: 14px;
   font-weight: 500;
-  color: #8491a5;
+}
+
+.item-data {
+  display: flex;
+}
+
+.item-menu {
+  display: flex;
+}
+
+.item-menu a {
+  width: 90px;
+  font-size: 16px;
+  color: #bad3c1;
+  text-align: center;
+}
+
+.item-menu a:hover {
+  color: #80bcff;
 }
 
 /* new, edit ================================ */

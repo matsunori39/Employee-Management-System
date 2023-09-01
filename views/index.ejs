@@ -13,24 +13,28 @@
       <h1>Employees-list</h1>
       <a href="/new" class="new-button">+ Add</a>
     </div>
-    <table>
-      <thead>
-        <tr>
-          <th class="id-column">ID</th>
-          <th>name</th>
-          <th>department</th>
+    <div class="index-table-wrapper">
+      <div class="table-head">
+        <span class="id-column">ID</span>
+        <span class="name-column">name</span>
+        <span>department</span>
         </tr>
-      </thead>
-      <tbody>
+      </div>
+      <ul class="table-body">
         <% items.forEach((item) => { %>
-          <tr>
-            <td class="id-column"><%= item.id %></td>
-            <td class="name-column" style="padding-left: 15px;"><%= item.name %></td>
-            <td class="department-column" style="padding-left: 15px;"><%= item.department %></td>
-          </tr>
+          <li>
+            <div class="item-data">
+              <span class="id-column"><%= item.id %></span>
+              <span class="name-column"><%= item.name %></span>
+              <span class="department-column"><%= item.department %></span>
+            </div>
+            <div class="item-menu">
+              <a href="/edit/<%= item.id %>">編集</a>
+            </div>
+          </li>
         <% }) %>
-      </tbody>
-    </table>
- </div>
+      </ul>
+    </div>
+  </div>
 </body>
 </html>

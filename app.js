@@ -39,4 +39,24 @@ app.post('/create', (req, res) => {
   );
 });
 
+app.get('/edit/:id', (req, res) => {
+  connection.query(
+    'SELECT * FROM basics WHERE id = ?',
+    [req.params.id],
+    (error, results) => {
+      res.render('edit.ejs', {item: results[0]});
+    }
+  );
+});
+
+app.post('/update/:id', (req, res) => {
+  connection.query(
+    'UPDATE basics SET name = ?, department = ? WHERE id = ?',
+    [ req.body.itemName, req.body.itemDepartment, req.params.id ],
+    (error, results) => {
+      res.redirect('/');
+    }
+  );
+});
+
 app.listen(3000);
