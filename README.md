@@ -18,7 +18,7 @@ Simple three-screen employee management system.
 
 - [x] Go to edit screeen from any employee information
 
-- [ ] Search by employee name
+- [x] Search by employee name
 
 ### Edit screen
 
