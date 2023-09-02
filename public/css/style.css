@@ -143,14 +143,18 @@ header {
   margin-top: 56px;
 }
 
-.container-header {
+.container-header-search {
+  margin-bottom: 12px;
+}
+
+.container-header-list {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 12px;
 }
 
-.container-header .new-button {
+.container-header-list .new-button {
   background: #80bcff;
   border-radius: 30px;
   font-size: 14px;
@@ -162,7 +166,7 @@ header {
   border: 2px solid #80bcff;
 }
 
-.container-header .new-button:hover {
+.container-header-list .new-button:hover {
   background-color: #ffffff;
   color: #80bcff;
   transition: all 0.3s ease;

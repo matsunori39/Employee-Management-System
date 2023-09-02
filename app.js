@@ -59,4 +59,16 @@ app.post('/update/:id', (req, res) => {
   );
 });
 
+app.post('/search', (req, res) => {
+  const query = 'SELECT * FROM basics WHERE name LIKE ?';
+  const likeWord = '%' + req.body.searchName + '%';
+  connection.query(
+    query,
+    [ likeWord ],
+    (error, results) => {
+      res.render('search.ejs', {items: results, word: req.body.searchName});
+    }
+  );
+});
+
 app.listen(3000);
