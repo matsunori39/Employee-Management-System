@@ -15,14 +15,17 @@ const connection = mysql.createConnection({
   database: 'employee'
 });
 
+let isSearched = false;
+let searchWord = '';
+
 app.get('/', (req, res) => {
   connection.query(
     'SELECT * FROM basics',
     (error, results) => {
-      // console.log(results);
       res.render('index.ejs', {items: results});
     }
   );
+  isSearched = false;
 });
 
 app.get('/new', (req, res) => {
@@ -54,21 +57,51 @@ app.post('/update/:id', (req, res) => {
     'UPDATE basics SET name = ?, department = ? WHERE id = ?',
     [ req.body.itemName, req.body.itemDepartment, req.params.id ],
     (error, results) => {
-      res.redirect('/');
+      if (isSearched) {
+        const query = 'SELECT * FROM basics WHERE name LIKE ?';
+        const likeWord = '%' + searchWord + '%';
+        connection.query(
+          query,
+          [ likeWord ],
+          (error, results) => {
+            res.render('search.ejs', {items: results, word: searchWord});
+          }
+        );
+      } else {
+        res.redirect('/');
+      }
     }
   );
 });
 
 app.post('/search', (req, res) => {
+  searchWord = req.body.searchName;
   const query = 'SELECT * FROM basics WHERE name LIKE ?';
-  const likeWord = '%' + req.body.searchName + '%';
+  const likeWord = '%' + searchWord + '%';
   connection.query(
     query,
     [ likeWord ],
     (error, results) => {
-      res.render('search.ejs', {items: results, word: req.body.searchName});
+      res.render('search.ejs', {items: results, word: searchWord});
     }
   );
+  isSearched = true;
+});
+
+app.get('/cancelEdit', (req, res) => {
+  if (isSearched) {
+    const query = 'SELECT * FROM basics WHERE name LIKE ?';
+    const likeWord = '%' + searchWord + '%';
+    connection.query(
+      query,
+      [ likeWord ],
+      (error, results) => {
+        res.render('search.ejs', {items: results, word: searchWord});
+      }
+    );
+  } else {
+    res.redirect('/');
+  }
 });
 
 app.listen(3000);
