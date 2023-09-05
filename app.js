@@ -88,7 +88,7 @@ app.post('/search', (req, res) => {
   isSearched = true;
 });
 
-app.get('/cancelEdit', (req, res) => {
+app.get('/fromEdit', (req, res) => {
   if (isSearched) {
     const query = 'SELECT * FROM basics WHERE name LIKE ?';
     const likeWord = '%' + searchWord + '%';
@@ -102,6 +102,16 @@ app.get('/cancelEdit', (req, res) => {
   } else {
     res.redirect('/');
   }
+});
+
+app.post('/delete/:id', (req, res) => {
+  connection.query(
+    'DELETE FROM basics WHERE id = ?',
+    [ req.params.id ],
+    (error, results) => {
+      res.redirect('/fromEdit');
+    }
+  );
 });
 
 app.listen(3000);

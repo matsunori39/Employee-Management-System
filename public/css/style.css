@@ -241,6 +241,32 @@ header {
   display: flex;
 }
 
+.bottom-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.item-menu form {
+  width: 60px;
+  text-align: center
+}
+
+.item-menu form input {
+  font-size: 16px;
+  color: #d49898;
+  cursor: pointer;
+  margin-top: 16px;
+  padding: 0;
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+/.item-menu form input:hover {
+  color: #ff7f8c;
+  transition: all 0.5s ease;
+}
+
 .item-menu a {
   width: 90px;
   font-size: 16px;
