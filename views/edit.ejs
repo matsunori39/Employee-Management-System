@@ -21,7 +21,14 @@
         <input type="submit" value="Update">
       </form>
     </div>
-    <a href="/cancelEdit" class="cancel-button">Cancel</a>
+    <div class="bottom-buttons">
+      <a href="/fromEdit" class="cancel-button">Cancel</a>
+      <div class="item-menu">
+        <form action="/delete/<%= item.id %>" method="post">
+          <input type="submit" value="DELETE">
+        </form>
+      </div>
+    </div>
   </div>
 </body>
 </html>
