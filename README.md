@@ -17,10 +17,10 @@ Simple three-screen employee management system.
 
 - [x] UI for adding employee information
 
-- [x] Go to edit screeen from any employee information
+- [x] Go to edit screen from any employee information
 
 - [x] Search by employee name
 
 ### Edit screen
 
-- [x] Ability to update and delete employe information
+- [x] Ability to update and delete employee information
