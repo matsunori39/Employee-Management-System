@@ -2,6 +2,7 @@
 A simple employee management system consisting of three screens (login screen, task screen, edit screen).
 ## Tools in use
 - Express(.js)
+- MySQL
 ## Application screen transition diagram
 Simple three-screen employee management system.
 ### Login screen
@@ -22,4 +23,4 @@ Simple three-screen employee management system.
 
 ### Edit screen
 
-- [ ] Ability to update and delete employe information
+- [x] Ability to update and delete employe information
