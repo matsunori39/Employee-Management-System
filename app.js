@@ -19,6 +19,10 @@ let isSearched = false;
 let searchWord = '';
 
 app.get('/', (req, res) => {
+  res.render('login.ejs');
+});
+
+app.get('/list', (req, res) => {
   connection.query(
     'SELECT * FROM basics',
     (error, results) => {
@@ -37,7 +41,7 @@ app.post('/create', (req, res) => {
     'INSERT INTO basics (name, department) VALUES (?, ?)',
     [ req.body.employeeName, req.body.departmentName ],
     (error, results) => {
-      res.redirect('/');
+      res.redirect('/list');
     }
   );
 });
@@ -68,7 +72,7 @@ app.post('/update/:id', (req, res) => {
           }
         );
       } else {
-        res.redirect('/');
+        res.redirect('/list');
       }
     }
   );
@@ -100,7 +104,7 @@ app.get('/fromEdit', (req, res) => {
       }
     );
   } else {
-    res.redirect('/');
+    res.redirect('/list');
   }
 });
 
