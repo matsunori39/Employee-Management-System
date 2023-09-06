@@ -1,3 +1,4 @@
+const e = require('express');
 const express = require('express');
 // For support of MySQL 8.0's default authentication method (caching_sha2_password) in Node.js, use 'mysql2'
 const mysql = require('mysql2');
@@ -114,6 +115,28 @@ app.post('/delete/:id', (req, res) => {
     [ req.params.id ],
     (error, results) => {
       res.redirect('/fromEdit');
+    }
+  );
+});
+
+app.post('/login', (req, res) => {
+  const email = req.body.email;
+
+  connection.query(
+    'SELECT * FROM users WHERE email = ?',
+    [email],
+    (error, results) => {
+      if (results.length > 0) {
+        if (req.body.password === results[0].password) {
+          console.log('Authentication success');
+          res.redirect('/list');
+        } else {
+          console.log('Authentication failed');
+          res.redirect('/');
+        }
+      } else {
+        res.redirect('/');
+      }
     }
   );
 });
