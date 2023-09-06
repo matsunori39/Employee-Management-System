@@ -2,12 +2,20 @@ const e = require('express');
 const express = require('express');
 // For support of MySQL 8.0's default authentication method (caching_sha2_password) in Node.js, use 'mysql2'
 const mysql = require('mysql2');
+const session = require('express-session');
 
 const app = express();
 // const port = 3000;
 
 app.use(express.static('public'));
 app.use(express.urlencoded({extended: false}));
+app.use(
+  session({
+    secret: 'itsy_secret_key',
+    resave: false,
+    saveUninitialized: false
+  })
+);
 
 const connection = mysql.createConnection({
   host: '127.0.0.1',  // Change from 'localhost'
@@ -24,6 +32,12 @@ app.get('/', (req, res) => {
 });
 
 app.get('/list', (req, res) => {
+  const userId = req.session.userId;
+  if (userId === undefined) {
+    console.log('Not Logged in');
+  } else {
+    console.log('Logged in');
+  }
   connection.query(
     'SELECT * FROM basics',
     (error, results) => {
@@ -121,17 +135,15 @@ app.post('/delete/:id', (req, res) => {
 
 app.post('/login', (req, res) => {
   const email = req.body.email;
-
   connection.query(
     'SELECT * FROM users WHERE email = ?',
     [email],
     (error, results) => {
       if (results.length > 0) {
         if (req.body.password === results[0].password) {
-          console.log('Authentication success');
+          req.session.userId = results[0].id;
           res.redirect('/list');
         } else {
-          console.log('Authentication failed');
           res.redirect('/');
         }
       } else {
