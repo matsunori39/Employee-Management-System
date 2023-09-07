@@ -29,11 +29,8 @@ let searchWord = '';
 
 app.use((req, res, next) => {
   if (req.session.userId === undefined) {
-    console.log('Not Logged in');
   } else {
-    console.log('Logged in');
     res.locals.username = req.session.username;
-    console.log(`Logged in by ${res.locals.username}`);
   }
   next();
 });
