@@ -134,6 +134,18 @@ header {
   color: #58d2b2;
 }
 
+.header-nav {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 700px;
+  max-width: 1200px;
+  padding: 0 20px;
+  margin: 0 auto;
+  /* height: 80px; */
+}
+
 /* container ================================ */
 .container {
   width: 70%;
