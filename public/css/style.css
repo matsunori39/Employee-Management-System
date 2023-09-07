@@ -323,3 +323,117 @@ header {
   color: #80bcff;
   transition: all 0.3s ease;
 }
+
+/* login ================================ */
+
+.sign {
+  background-color: #ffffff;
+  text-rendering: optimizeSpeed;
+  color: #2B546A;
+  line-height: 1.6;
+  flex-direction: column;
+  border-top: 20px solid #88E7CE;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.sign > .container {
+  width: 550px;
+  padding: 60px 0;
+}
+
+.sign > .container > p {
+  margin-top: 36px;
+  font-weight: bold;
+  font-size: 14px;
+  text-align: center;
+}
+
+.sign > .container > p > a {
+  /* display: inline-block; */
+  /* margin-left: 20px; */
+  /* color: #4CCFC9; */
+}
+
+.sign > .container > p > a:hover {
+  /* color: #2DC2BC; */
+}
+
+.sign > .container form {
+  padding-top: 40px;
+}
+
+.sign .panel {
+  padding: 60px 80px 40px;
+  background-color: #F6FAFF;
+}
+
+.sign h1 {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.sign h1 > a {
+  color: #2B546A;
+  font-size: 28px;
+}
+
+.sign h1 > a:hover {
+  color: #2b6d90;
+}
+
+.sign h2 {
+  text-align: center;
+  font-size: 24px;
+}
+
+.sign form > p {
+  margin-bottom: 10px;
+}
+
+.sign input {
+  width: 100%;
+  padding: 10px 20px;
+  line-height: 1.8;
+  border: 1px solid #d5dee8;
+  background-color: #FCFCFD;
+  border-radius: 4px;
+  outline: none;
+  font-size: 16px;
+  color: #2B546A;
+}
+
+.sign input:hover {
+  border-color: #b6c4d2;
+  box-shadow: 0px 0px 12px 1px rgba(160, 195, 247, 0.2);
+}
+
+.sign input:focus {
+  border-color: #b6c4d2;
+}
+
+.sign input[name="username"] {
+  margin-bottom: 30px;
+  padding: 10px 20px;
+  line-height: 1.8;
+  border: 1px solid #d5dee8;
+}
+
+.sign input[name="email"] {
+  margin-bottom: 30px;
+}
+
+.sign input[type="submit"] {
+  width: 90%;
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #4CCFC9;
+  height: 54px;
+  padding: 0 90px;
+  border-radius: 27px;
+  display: block;
+  margin: 50px;
+}
