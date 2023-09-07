@@ -27,17 +27,20 @@ const connection = mysql.createConnection({
 let isSearched = false;
 let searchWord = '';
 
+app.use((req, res, next) => {
+  if (req.session.userId === undefined) {
+    console.log('Not Logged in');
+  } else {
+    console.log('Logged in');
+  }
+  next();
+});
+
 app.get('/', (req, res) => {
   res.render('login.ejs');
 });
 
 app.get('/list', (req, res) => {
-  const userId = req.session.userId;
-  if (userId === undefined) {
-    console.log('Not Logged in');
-  } else {
-    console.log('Logged in');
-  }
   connection.query(
     'SELECT * FROM basics',
     (error, results) => {
