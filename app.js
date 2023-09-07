@@ -29,8 +29,10 @@ let searchWord = '';
 
 app.use((req, res, next) => {
   if (req.session.userId === undefined) {
+    res.locals.isLoggedIn = false;
   } else {
     res.locals.username = req.session.username;
+    res.locals.isLoggedIn = true;
   }
   next();
 });
@@ -155,6 +157,12 @@ app.post('/login', (req, res) => {
       }
     }
   );
+});
+
+app.get('/logout', (req, res) => {
+  req.session.destroy((error) => {
+    res.redirect('/');
+  });
 });
 
 app.listen(3000);
