@@ -32,6 +32,8 @@ app.use((req, res, next) => {
     console.log('Not Logged in');
   } else {
     console.log('Logged in');
+    res.locals.username = req.session.username;
+    console.log(`Logged in by ${res.locals.username}`);
   }
   next();
 });
@@ -145,6 +147,8 @@ app.post('/login', (req, res) => {
       if (results.length > 0) {
         if (req.body.password === results[0].password) {
           req.session.userId = results[0].id;
+          req.session.username = results[0].email;
+
           res.redirect('/list');
         } else {
           res.redirect('/');
