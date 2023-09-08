@@ -41,7 +41,10 @@ app.get('/', (req, res) => {
   res.render('login.ejs');
 });
 
-app.get('/list', (req, res) => {
+app.get('/list', (req, res, next) => {
+  if (!res.locals.isLoggedIn) {
+    return res.redirect('/');
+  }
   connection.query(
     'SELECT * FROM basics',
     (error, results) => {
@@ -52,6 +55,9 @@ app.get('/list', (req, res) => {
 });
 
 app.get('/new', (req, res) => {
+  if (!res.locals.isLoggedIn) {
+    return res.redirect('/');
+  }
   res.render('new.ejs');
 });
 
@@ -66,6 +72,9 @@ app.post('/create', (req, res) => {
 });
 
 app.get('/edit/:id', (req, res) => {
+  if (!res.locals.isLoggedIn) {
+    return res.redirect('/');
+  }
   connection.query(
     'SELECT * FROM basics WHERE id = ?',
     [req.params.id],
