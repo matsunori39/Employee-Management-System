@@ -38,6 +38,9 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
+  if (res.locals.isLoggedIn) {
+    return res.redirect('/list');
+  }
   res.render('login.ejs');
 });
 
