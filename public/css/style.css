@@ -436,6 +436,16 @@ header {
   margin-bottom: 10px;
 }
 
+.sign form > a {
+  display: block;
+  width: 50%;
+  text-align: center;
+  margin: 10px auto 0;
+  color: #A4B5C8;
+  font-weight: bold;
+  padding: 15px 0;
+}
+
 .sign input {
   width: 100%;
   padding: 10px 20px;
@@ -469,14 +479,13 @@ header {
 }
 
 .sign input[type="submit"] {
-  width: 90%;
   font-size: 18px;
   font-weight: bold;
   color: #ffffff;
   background-color: #4CCFC9;
   height: 54px;
-  padding: 0 90px;
   border-radius: 27px;
+  width: 90%;
   display: block;
-  margin: 50px;
+  margin: 50px auto 0;
 }
