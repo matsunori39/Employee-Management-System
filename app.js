@@ -161,6 +161,8 @@ app.post('/signup', (req, res) => {
     'INSERT INTO users(username, email, password) VALUES (?, ?, ?)',
     [username, email, password],
     (error, results) => {
+      req.session.userId = results.insertId;
+      req.session.username = username;
       res.redirect('/list');
     }
   );
@@ -176,7 +178,6 @@ app.post('/login', (req, res) => {
         if (req.body.password === results[0].password) {
           req.session.userId = results[0].id;
           req.session.username = results[0].username;
-
           res.redirect('/list');
         } else {
           res.redirect('/');
