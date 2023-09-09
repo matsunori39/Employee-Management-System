@@ -153,6 +153,19 @@ app.get('/signup', (req, res) => {
   res.render('signup.ejs');
 });
 
+app.post('/signup', (req, res) => {
+  const username = req.body.username;
+  const email = req.body.email;
+  const password = req.body.password;
+  connection.query(
+    'INSERT INTO users(username, email, password) VALUES (?, ?, ?)',
+    [username, email, password],
+    (error, results) => {
+      res.redirect('/list');
+    }
+  );
+});
+
 app.post('/login', (req, res) => {
   const email = req.body.email;
   connection.query(
@@ -162,7 +175,7 @@ app.post('/login', (req, res) => {
       if (results.length > 0) {
         if (req.body.password === results[0].password) {
           req.session.userId = results[0].id;
-          req.session.username = results[0].email;
+          req.session.username = results[0].username;
 
           res.redirect('/list');
         } else {
