@@ -149,6 +149,10 @@ app.post('/delete/:id', (req, res) => {
   );
 });
 
+app.get('/signup', (req, res) => {
+  res.render('signup.ejs');
+});
+
 app.post('/login', (req, res) => {
   const email = req.body.email;
   connection.query(
