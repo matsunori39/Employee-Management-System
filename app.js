@@ -150,7 +150,7 @@ app.post('/delete/:id', (req, res) => {
 });
 
 app.get('/signup', (req, res) => {
-  res.render('signup.ejs');
+  res.render('signup.ejs', {errors: [] });
 });
 
 app.post('/signup',
@@ -173,10 +173,8 @@ app.post('/signup',
       errors.push('Empty password.');
     }
 
-    console.log(errors);
-
     if (errors.length > 0) {
-      res.redirect('/signup');
+      res.render('signup.ejs', { errors: errors });
     } else {
       next();
     }
