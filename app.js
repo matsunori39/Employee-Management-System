@@ -150,23 +150,52 @@ app.post('/delete/:id', (req, res) => {
 });
 
 app.get('/signup', (req, res) => {
-  res.render('signup.ejs');
+  res.render('signup.ejs', {errors: [] });
 });
 
-app.post('/signup', (req, res) => {
-  const username = req.body.username;
-  const email = req.body.email;
-  const password = req.body.password;
-  connection.query(
-    'INSERT INTO users(username, email, password) VALUES (?, ?, ?)',
-    [username, email, password],
-    (error, results) => {
-      req.session.userId = results.insertId;
-      req.session.username = username;
-      res.redirect('/list');
+app.post('/signup',
+  (req, res, next) => {
+    console.log('Empty check of input values');
+
+    const username = req.body.username;
+    const email = req.body.email;
+    const password = req.body.password;
+
+    const errors = [];
+
+    if (username === '') {
+      errors.push('Empty username.');
     }
-  );
-});
+    if (email === '') {
+      errors.push('Empty email address.');
+    }
+    if (password === '') {
+      errors.push('Empty password.');
+    }
+
+    if (errors.length > 0) {
+      res.render('signup.ejs', { errors: errors });
+    } else {
+      next();
+    }
+  },
+  (req, res) => {
+    console.log('User registration');
+
+    const username = req.body.username;
+    const email = req.body.email;
+    const password = req.body.password;
+    connection.query(
+      'INSERT INTO users(username, email, password) VALUES (?, ?, ?)',
+      [username, email, password],
+      (error, results) => {
+        req.session.userId = results.insertId;
+        req.session.username = username;
+        res.redirect('/list');
+      }
+    );
+  }
+);
 
 app.post('/login', (req, res) => {
   const email = req.body.email;
