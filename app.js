@@ -153,20 +153,27 @@ app.get('/signup', (req, res) => {
   res.render('signup.ejs');
 });
 
-app.post('/signup', (req, res) => {
-  const username = req.body.username;
-  const email = req.body.email;
-  const password = req.body.password;
-  connection.query(
-    'INSERT INTO users(username, email, password) VALUES (?, ?, ?)',
-    [username, email, password],
-    (error, results) => {
-      req.session.userId = results.insertId;
-      req.session.username = username;
-      res.redirect('/list');
-    }
-  );
-});
+app.post('/signup',
+  (req, res, next) => {
+    console.log('入力値の空チェック');
+    next();
+  },
+  (req, res) => {
+    console.log('ユーザー登録');
+    const username = req.body.username;
+    const email = req.body.email;
+    const password = req.body.password;
+    connection.query(
+      'INSERT INTO users(username, email, password) VALUES (?, ?, ?)',
+      [username, email, password],
+      (error, results) => {
+        req.session.userId = results.insertId;
+        req.session.username = username;
+        res.redirect('/list');
+      }
+    );
+  }
+);
 
 app.post('/login', (req, res) => {
   const email = req.body.email;
