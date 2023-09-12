@@ -155,11 +155,35 @@ app.get('/signup', (req, res) => {
 
 app.post('/signup',
   (req, res, next) => {
-    console.log('入力値の空チェック');
-    next();
+    console.log('Empty check of input values');
+
+    const username = req.body.username;
+    const email = req.body.email;
+    const password = req.body.password;
+
+    const errors = [];
+
+    if (username === '') {
+      errors.push('Empty username.');
+    }
+    if (email === '') {
+      errors.push('Empty email address.');
+    }
+    if (password === '') {
+      errors.push('Empty password.');
+    }
+
+    console.log(errors);
+
+    if (errors.length > 0) {
+      res.redirect('/signup');
+    } else {
+      next();
+    }
   },
   (req, res) => {
-    console.log('ユーザー登録');
+    console.log('User registration');
+
     const username = req.body.username;
     const email = req.body.email;
     const password = req.body.password;
