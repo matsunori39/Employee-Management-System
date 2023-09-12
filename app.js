@@ -169,8 +169,8 @@ app.post('/signup',
     if (email === '') {
       errors.push('Empty email address.');
     }
-    if (password === '') {
-      errors.push('Empty password.');
+    if (password.length < 6) {
+      errors.push('Password length must be at least 6 characters.');
     }
 
     if (errors.length > 0) {
