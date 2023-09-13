@@ -7,9 +7,9 @@ A simple employee management system consisting of three screens (login screen, t
 Simple three-screen employee management system.
 ### Login screen
 
-- [ ] ID/Password Authentication
+- [x] ID/Password Authentication
 
-- [ ] Character limit validation
+- [x] Character limit validation
 
 ### Task management screen
 
