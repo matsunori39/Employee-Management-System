@@ -179,6 +179,23 @@ app.post('/signup',
       next();
     }
   },
+  (req, res, next) => {
+    console.log('Check duplicate email addresses');
+    const email = req.body.email;
+    const errors = [];
+    connection.query(
+      'SELECT * FROM users WHERE email=?',
+      [email],
+      (error, results) => {
+        if (results.length > 0) {
+          errors.push('Already registered with this email address.');
+          res.render('signup.ejs', { errors: errors});
+        } else {
+          next();
+        }
+      }
+    );
+  },
   (req, res) => {
     console.log('User registration');
 
