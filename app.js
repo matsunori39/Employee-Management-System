@@ -1,9 +1,8 @@
-const e = require('express');
 const express = require('express');
 // For support of MySQL 8.0's default authentication method (caching_sha2_password) in Node.js, use 'mysql2'
 const mysql = require('mysql2');
 const session = require('express-session');
-
+const bcrypt = require('bcrypt');
 const app = express();
 // const port = 3000;
 
@@ -198,19 +197,20 @@ app.post('/signup',
   },
   (req, res) => {
     console.log('User registration');
-
     const username = req.body.username;
     const email = req.body.email;
     const password = req.body.password;
-    connection.query(
-      'INSERT INTO users(username, email, password) VALUES (?, ?, ?)',
-      [username, email, password],
-      (error, results) => {
-        req.session.userId = results.insertId;
-        req.session.username = username;
-        res.redirect('/list');
-      }
-    );
+    bcrypt.hash(password, 10, (error, hash) => {
+      connection.query(
+        'INSERT INTO users(username, email, password) VALUES (?, ?, ?)',
+        [username, email, hash],
+        (error, results) => {
+          req.session.userId = results.insertId;
+          req.session.username = username;
+          res.redirect('/list');
+        }
+      );
+    });
   }
 );
 
@@ -221,13 +221,17 @@ app.post('/login', (req, res) => {
     [email],
     (error, results) => {
       if (results.length > 0) {
-        if (req.body.password === results[0].password) {
-          req.session.userId = results[0].id;
-          req.session.username = results[0].username;
-          res.redirect('/list');
-        } else {
-          res.redirect('/');
-        }
+        const plain = req.body.password;
+        const hash = results[0].password;
+        bcrypt.compare(plain, hash, (error, isEqual) => {
+          if (isEqual) {
+            req.session.userId = results[0].id;
+            req.session.username = results[0].username;
+            res.redirect('/list');
+          } else {
+            res.redirect('/');
+          }
+        });
       } else {
         res.redirect('/');
       }
