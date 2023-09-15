@@ -17,7 +17,8 @@ app.use(
 );
 
 const connection = mysql.createConnection({
-  host: '127.0.0.1',  // Change from 'localhost'
+  // host: '127.0.0.1',  // Change from 'localhost'
+  host: 'employee-management-system-mysql-1',  // Change from 'localhost'
   user: 'root',
   password: 'R00tMysq1',
   database: 'employee'

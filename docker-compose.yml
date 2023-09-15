@@ -1,0 +1,47 @@
+services:
+  app:
+    image: node:20-alpine
+    ports:
+      - 127.0.0.1:3000:3000
+    working_dir: /app
+    volumes:
+      - ./:/app
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: R00tMysq1
+      MYSQL_DB: employee
+    depends_on:
+      mysql:
+        condition: service_healthy
+    command: sh -c "yarn install && yarn global add nodemon && nodemon app.js"
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: R00tMysq1
+      MYSQL_DATABASE: employee
+      TZ: "Asia/Tokyo"
+      LANG: "en_US.UTF-8"
+    command: [ mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci ]
+    ports:
+      - '3006:3006'
+    volumes:
+      - employee-mysql-data:/var/lib/mysql
+      - ./database/initialize:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: "mysql --password='R00tMysq1' --execute 'show databases;'"
+      interval: 3s
+      timeout: 30s
+      retries: 10
+      start_period: 0s
+
+volumes:
+  employee-mysql-data:
+
+
+
+
+
+
+
