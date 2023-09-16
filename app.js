@@ -149,7 +149,14 @@ app.post('/delete/:id', (req, res) => {
   );
 });
 
+app.get('/before-signup', (req, res) => {
+  res.render('before-signup.ejs');
+});
+
 app.get('/signup', (req, res) => {
+  if (!res.locals.isLoggedIn) {
+    return res.redirect('/before-signup');
+  }
   res.render('signup.ejs', {errors: [] });
 });
 
