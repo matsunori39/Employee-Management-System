@@ -26,6 +26,7 @@ const connection = mysql.createConnection({
 
 let isSearched = false;
 let searchWord = '';
+let isBeforeSignup = false;
 
 app.use((req, res, next) => {
   if (req.session.userId === undefined) {
@@ -38,6 +39,7 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
+  isBeforeSignup = false;
   if (res.locals.isLoggedIn) {
     return res.redirect('/list');
   }
@@ -149,7 +151,18 @@ app.post('/delete/:id', (req, res) => {
   );
 });
 
+app.get('/before-signup', (req, res) => {
+  if (res.locals.isLoggedIn) {
+    return res.redirect('/');
+  }
+  isBeforeSignup = true;
+  res.render('before-signup.ejs');
+});
+
 app.get('/signup', (req, res) => {
+  if (!res.locals.isLoggedIn) {
+    return res.redirect('/before-signup');
+  }
   res.render('signup.ejs', {errors: [] });
 });
 
@@ -228,13 +241,29 @@ app.post('/login', (req, res) => {
           if (isEqual) {
             req.session.userId = results[0].id;
             req.session.username = results[0].username;
-            res.redirect('/list');
+            if (isBeforeSignup) {
+              isBeforeSignup = false;
+              res.redirect('/signup');
+            } else {
+              res.redirect('/list');
+            }
           } else {
-            res.redirect('/');
+            // !isEqual
+            if (isBeforeSignup) {
+              res.redirect('/before-signup');
+            } else {
+              res.redirect('/');
+            }
           }
         });
       } else {
-        res.redirect('/');
+        // no results
+        if (isBeforeSignup) {
+          isBeforeSignup = false;
+          res.redirect('/before-signup');
+        } else {
+          res.redirect('/');
+        }
       }
     }
   );
