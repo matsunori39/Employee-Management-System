@@ -26,3 +26,5 @@ INSERT INTO users (username, email, password) VALUES (
   's.suzuki', 's.suzuki@its-y.co.jp', '$2b$10$bc7nU3DDbcNxaAxNP41bpetp4avs63RaCqi5o1gUPR/bu9Miuf12e');
 INSERT INTO users (username, email, password) VALUES (
   'a.tanaka', 'a.tanaka@its-y.co.jp', '$2b$10$xoyZEX6a8Sqa3Fdc3cs2qOdSKY2j1YYB1GK/A4Q6fhtrBz1u3yzUa');
+INSERT INTO users (username, email, password) VALUES (
+  'guest', 'guest@example.com', '$2b$10$O3wQWEdhKHjuvK6XGZN0fO3u.uY2MXPeu.VvmFS5hUi4ZzgJxRLk.');

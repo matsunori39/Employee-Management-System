@@ -30,14 +30,13 @@
     <li><a href="#acknowledgments">Ackowledgments</a></li>
   </ol>
 </details>
-      
 ## About The Project
 
 - [x] [TODO]: [product-screenshot]
 
 Demonstration of a simple employee management system consisting of a login screen, task screen, edit screen, etc.
 
-### Built with 
+### Built with
 - Express(.js)
 - MySQL
 
