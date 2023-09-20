@@ -30,6 +30,7 @@
     <li><a href="#acknowledgments">Ackowledgments</a></li>
   </ol>
 </details>
+
 ## About The Project
 
 - [x] [TODO]: [product-screenshot]
