@@ -80,5 +80,5 @@ Simple three-screen employee management system.
    docker compose up -d
    ```
 ## Usage
-1. Load [http://localhost/](http://localhost/) in a browser.
+1. Load [http://localhost:3000/](http://localhost:3000/) in a browser.
 2. Enter "guest@example.com" in the E-mail address field and "password" in the Password field, then press the Login button.
