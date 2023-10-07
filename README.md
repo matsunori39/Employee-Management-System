@@ -23,11 +23,11 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</li>
+<!--     <li><a href="#roadmap">Roadmap</li> -->
 <!--     <li><a href="#contributing">Contributing</a></li> -->
 <!--     <li><a href="#license">License</a></li> -->
-    <li><a href="#contact">Contact</li>
-    <li><a href="#acknowledgments">Ackowledgments</a></li>
+<!--     <li><a href="#contact">Contact</li> -->
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -82,3 +82,8 @@ Simple three-screen employee management system.
 ## Usage
 1. Load [http://localhost:3000/](http://localhost:3000/) in a browser.
 2. Enter "guest@example.com" in the E-mail address field and "password" in the Password field, then press the Login button.
+
+## Acknowledgments
+- Course on Node.js and SQL on the site for learning programming "Progate" (membership with costs)  
+  [https://prog-8.com/courses/nodejs](https://prog-8.com/courses/nodejs)  
+  [https://prog-8.com/courses/SQL](https://prog-8.com/courses/SQL)  
