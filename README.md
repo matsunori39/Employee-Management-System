@@ -81,9 +81,9 @@ Simple three-screen employee management system.
    ```
 ## Usage
 1. Load [http://localhost:3000/](http://localhost:3000/) in a browser.
-2. Enter "guest@example.com" in the E-mail address field and "password" in the Password field, then press the Login button.
+2. Enter `guest@example.com` in the E-mail address field and `password` in the Password field, then press the Login button.
 
 ## Acknowledgments
-- Course on Node.js and SQL on the site for learning programming "Progate" (membership with costs)  
+- Course on Node.js and SQL on the site for learning programming "Progate" (<ins>membership with costs</ins>)  
   [https://prog-8.com/courses/nodejs](https://prog-8.com/courses/nodejs)  
   [https://prog-8.com/courses/SQL](https://prog-8.com/courses/SQL)  
