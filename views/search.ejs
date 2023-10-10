@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
-  <title>SEARCHED EMPLOYEES</title>
+  <title>検索結果</title>
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
   <%- include('header.ejs'); %>
   <div class="container">
     <div class="container-header-search">
-      <h2>Employee-name-search</h2>
+      <h2>社員名検索</h2>
       <form action="/search" method="post">
         <input type="text" name="searchName">
-        <input type="submit" value="Search">
+        <input type="submit" value="検索">
       </form>
     </div>
     <div class="container-header">
-      <h1>Searched employees</h1>
+      <h1>検索結果</h1>
     </div>
-    <p>Searched by "<%= word%>"</p>
+    <p>検索ワード「<%= word%>」</p>
     <div class="index-table-wrapper">
       <div class="table-head">
         <span class="id-column">ID</span>
-        <span class="name-column">name</span>
-        <span>department</span>
+        <span class="name-column">名前</span>
+        <span>部署名</span>
         </tr>
       </div>
       <ul class="table-body">
@@ -34,13 +34,13 @@
               <span class="department-column"><%= item.department %></span>
             </div>
             <div class="item-menu">
-              <a href="/edit/<%= item.id %>">Edit</a>
+              <a href="/edit/<%= item.id %>">編集</a>
             </div>
           </li>
         <% }) %>
       </ul>
     </div>
-    <a href="/list" class="cancel-button">List All</a>
+    <a href="/list" class="cancel-button">一覧表示</a>
   </div>
 </body>
 </html>
