@@ -2,15 +2,15 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Sign up</title>
+    <title>ユーザー登録</title>
     <link rel="stylesheet" href="/css/style.css">
   </head>
   <body>
     <div class="sign">
       <div class="container">
-        <h1><a href="/">EMPLOYEES MANAGEMENT</a></h1>
+        <h1><a href="/">社員情報管理システム</a></h1>
         <div class="panel">
-          <h2>Sign up</h2>
+          <h2>ユーザー登録</h2>
           <% if (errors.length > 0) { %>
             <ul class="errors">
               <% errors.forEach(error => { %>
@@ -19,14 +19,14 @@
             </ul>
           <% } %>
           <form action="/signup" method="post">
-            <p>Username</p>
+            <p>ユーザー名</p>
             <input type="text" name="username">
-            <p>E-mail address</p>
+            <p>メールアドレス</p>
             <input type="text" name="email">
-            <p>Password (6+ characters)</p>
+            <p>パスワード (※6文字以上)</p>
             <input type="password" name="password">
-            <input type="submit" value="Sign up">
-            <a href="/logout">Cancel</a>
+            <input type="submit" value="ユーザー登録">
+            <a href="/logout">キャンセル</a>
           </form>
         </div>
       </div>

@@ -1,29 +1,29 @@
 <!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
-  <title>EDIT EMPLOYEE</title>
+  <title>社員情報編集</title>
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
   <%- include('header.ejs'); %>
   <div class="container">
     <div class="container-header">
-      <h1>Edit employee<h1>
+      <h1>社員情報編集<h1>
     </div>
     <div class="employee-form-wrapper">
       <form action="/update/<%= item.id %>" method="post">
-        <p class="form-label">Name</p>
+        <p class="form-label">名前</p>
         <input type="text" value="<%= item.name %>" name="itemName">
-        <p class="form-label">Department</p>
+        <p class="form-label">部署名</p>
         <input type="text" value="<%= item.department %>" name="itemDepartment">
-        <input type="submit" value="Update">
+        <input type="submit" value="更新する">
       </form>
     </div>
     <div class="bottom-buttons">
-      <a href="/fromEdit" class="cancel-button">Cancel</a>
+      <a href="/fromEdit" class="cancel-button">キャンセル</a>
       <div class="item-menu">
         <form action="/delete/<%= item.id %>" method="post">
-          <input type="submit" value="DELETE">
+          <input type="submit" value="削除する">
         </form>
       </div>
     </div>

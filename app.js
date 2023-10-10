@@ -177,13 +177,13 @@ app.post('/signup',
     const errors = [];
 
     if (username === '') {
-      errors.push('Empty username.');
+      errors.push('- ユーザー名が空です');
     }
     if (email === '') {
-      errors.push('Empty email address.');
+      errors.push('- メールアドレスが空です');
     }
     if (password.length < 6) {
-      errors.push('Password length must be at least 6 characters.');
+      errors.push('- パスワードは6文字以上で入力して下さい');
     }
 
     if (errors.length > 0) {
@@ -201,7 +201,7 @@ app.post('/signup',
       [email],
       (error, results) => {
         if (results.length > 0) {
-          errors.push('Already registered with this email address.');
+          errors.push('- 入力されたメールアドレスは登録済みです');
           res.render('signup.ejs', { errors: errors});
         } else {
           next();
