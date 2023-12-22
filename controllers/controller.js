@@ -1,5 +1,8 @@
 const express = require('express');
 
+const query = require("../models/model");
+
+// For support of MySQL 8.0's default authentication method (caching_sha2_password) in Node.js, use 'mysql2'
 const mysql = require('mysql2');
 const session = require('express-session');
 const bcrypt = require('bcrypt');
@@ -16,114 +19,63 @@ let searchWord = '';
 
 exports.top_get = (req, res) => {
   if (res.locals.isLoggedIn) {
-    return res.redirect('/list');
+    return this.list_redirect(req, res);
   }
   res.render('login.ejs');
 };
 
-exports.list_get = (req, res, next) => {
-  if (!res.locals.isLoggedIn) {
-    return res.redirect('/');
-  }
-  connection.query(
-    'SELECT * FROM basics',
-    (error, results) => {
-      res.render('index.ejs', {items: results});
-    }
-  );
-  isSearched = false;
+exports.list_redirect = (req, res) => {
+  res.redirect('/list');
 };
 
-exports.new_get = (req, res) => {
+exports.loggedIn_check = (req, res, next) => {
   if (!res.locals.isLoggedIn) {
     return res.redirect('/');
   }
+  next();
+};
+
+exports.list_get = async (req, res) => {
+  isSearched = false;
+  const results = await query.get_all();
+  await res.render('index.ejs', {items: results});
+};
+
+exports.new_render = (req, res) => {
   res.render('new.ejs');
 };
 
-exports.create_post = (req, res) => {
-  connection.query(
-    'INSERT INTO basics (name, department) VALUES (?, ?)',
-    [ req.body.employeeName, req.body.departmentName ],
-    (error, results) => {
-      res.redirect('/list');
-    }
-  );
+exports.create_post = (req, res, next) => {
+  query.create_query(req, res, next);
 };
 
 exports.edit_get = (req, res) => {
-  if (!res.locals.isLoggedIn) {
-    return res.redirect('/');
-  }
-  connection.query(
-    'SELECT * FROM basics WHERE id = ?',
-    [req.params.id],
-    (error, results) => {
-      res.render('edit.ejs', {item: results[0]});
-    }
-  );
+  query.forEdit_query(req, res);
+}
+
+exports.edit_render = (req, res) => {
+  res.render('edit.ejs', {item: res.locals.results[0]});
 };
 
 exports.update_post = (req, res) => {
-  connection.query(
-    'UPDATE basics SET name = ?, department = ? WHERE id = ?',
-    [ req.body.itemName, req.body.itemDepartment, req.params.id ],
-    (error, results) => {
-      if (isSearched) {
-        const query = 'SELECT * FROM basics WHERE name LIKE ?';
-        const likeWord = '%' + searchWord + '%';
-        connection.query(
-          query,
-          [ likeWord ],
-          (error, results) => {
-            res.render('search.ejs', {items: results, word: searchWord});
-          }
-        );
-      } else {
-        res.redirect('/list');
-      }
-    }
-  );
+  query.update_query(req, res);
 };
 
 exports.search_post = (req, res) => {
-  searchWord = req.body.searchName;
-  const query = 'SELECT * FROM basics WHERE name LIKE ?';
-  const likeWord = '%' + searchWord + '%';
-  connection.query(
-    query,
-    [ likeWord ],
-    (error, results) => {
-      res.render('search.ejs', {items: results, word: searchWord});
-    }
-  );
   isSearched = true;
+  query.search_query(req, res);
 };
 
 exports.fromEdit_get = (req, res) => {
   if (isSearched) {
-    const query = 'SELECT * FROM basics WHERE name LIKE ?';
-    const likeWord = '%' + searchWord + '%';
-    connection.query(
-      query,
-      [ likeWord ],
-      (error, results) => {
-        res.render('search.ejs', {items: results, word: searchWord});
-      }
-    );
+    this.search_post(req, res);
   } else {
-    res.redirect('/list');
+    this.list_redirect(req, res);
   }
 };
 
-exports.delete_id_post = (req, res) => {
-  connection.query(
-    'DELETE FROM basics WHERE id = ?',
-    [ req.params.id ],
-    (error, results) => {
-      res.redirect('/fromEdit');
-    }
-  );
+exports.delete_id_post = (req, res, next) => {
+  query.delete_query(req, res, next);
 };
 
 exports.before_signup_get = (req, res) => {
