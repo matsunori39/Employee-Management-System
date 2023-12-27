@@ -1,10 +1,6 @@
-const express = require("express");
-
 // For support of MySQL 8.0's default authentication method (caching_sha2_password) in Node.js, use 'mysql2'
 // import mysql from 'mysql2/promise';
-const mysql = require("mysql2");
-const session = require("express-session");
-const bcrypt = require("bcrypt");
+import mysql from "mysql2";
 // const connection = await mysql.createConnection({
 const connection = mysql.createConnection({
   // host: '127.0.0.1',  // Change from 'localhost'
@@ -17,13 +13,13 @@ const connection = mysql.createConnection({
 let isSearched = false;
 let searchWord = "";
 
-// exports.get_all = async () => {
+// export const get_all = async () => {
 //   isSearched = false;
 //   const [results, ] = await connection.query(
 //     'SELECT * FROM basics');
 //   return results;
 // };
-exports.get_all = async () => {
+export const get_all = async () => {
   isSearched = false;
   return new Promise((resolve, reject) => {
     connection.query("SELECT * FROM basics", (err, results) => {
@@ -35,7 +31,7 @@ exports.get_all = async () => {
   });
 };
 
-exports.create_query = (req, res, next) => {
+export const create_query = (req, res, next) => {
   connection.query(
     "INSERT INTO basics (name, department) VALUES (?, ?)",
     [req.body.employeeName, req.body.departmentName],
@@ -45,7 +41,7 @@ exports.create_query = (req, res, next) => {
   );
 };
 
-exports.forEdit_query = (req, res) => {
+export const forEdit_query = (req, res) => {
   connection.query(
     "SELECT * FROM basics WHERE id = ?",
     [req.params.id],
@@ -55,21 +51,25 @@ exports.forEdit_query = (req, res) => {
   );
 };
 
-exports.update_query = (req, res) => {
+export const update_query = async (req, res) => {
   connection.query(
     "UPDATE basics SET name = ?, department = ? WHERE id = ?",
     [req.body.itemName, req.body.itemDepartment, req.params.id],
-    (error, results) => {
+    async (error, results) => {
       if (isSearched) {
-        this.search_query(req, res);
+        search_query(req, res);
       } else {
-        this.list_all_query(req, res);
+        // this.list_all_query(req, res);
+        // list_all_query(req, res);
+        isSearched = false;
+        const results = await get_all();
+        await res.render('index.ejs', {items: results});
       }
     }
   );
 };
 
-exports.search_query = (req, res) => {
+export const search_query = (req, res) => {
   isSearched = true;
   if (searchWord === "") {
     searchWord = req.body.searchName;
@@ -81,7 +81,7 @@ exports.search_query = (req, res) => {
   });
 };
 
-exports.delete_query = (req, res, next) => {
+export const delete_query = (req, res, next) => {
   connection.query(
     "DELETE FROM basics WHERE id = ?",
     [req.params.id],
