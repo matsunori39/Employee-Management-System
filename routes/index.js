@@ -1,8 +1,8 @@
-const express = require('express');
+import express from "express";
 const router = express.Router();
 
-const controller = require("../controllers/controller");
-const query = require("../models/model");
+import * as controller from "../controllers/controller.js";
+// import query from "../models/model.js";
 
 router.get('/', controller.top_get);
 router.get('/list', controller.loggedIn_check, controller.list_get);
@@ -30,4 +30,4 @@ router.post('/login', controller.login_post);
 router.post('/login-for-signup', controller.login_for_signup);
 router.get('/logout', controller.logout_get);
 
-module.exports = router;
+export default router;

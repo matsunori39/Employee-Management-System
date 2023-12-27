@@ -1,9 +1,9 @@
-const express = require('express');
-const session = require('express-session');
+import express from "express";
+import session from "express-session";
 const app = express();
 // const port = 3000;
 
-const routes = require('./routes/index');
+import routes from "./routes/index.js";
 
 app.use(express.static('public'));
 app.use(express.urlencoded({extended: false}));
