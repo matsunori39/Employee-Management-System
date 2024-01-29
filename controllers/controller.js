@@ -1,4 +1,4 @@
-import * as query from "../models/model.js";
+import * as employee from "../models/employee.js";
 
 // For support of MySQL 8.0's default authentication method (caching_sha2_password) in Node.js, use 'mysql2'
 import mysql from "mysql2";
@@ -11,7 +11,7 @@ const connection = mysql.createConnection({
   database: "employee",
 });
 
-let isSearched = false;
+let isFromList = false;
 let searchWord = "";
 
 export const top_get = (req, res) => {
@@ -33,8 +33,8 @@ export const loggedIn_check = (req, res, next) => {
 };
 
 export const list_get = async (req, res) => {
-  isSearched = false;
-  const results = await query.get_all();
+  isFromList = true;
+  const results = await employee.get_all_employee();
   await res.render("index.ejs", { items: results });
 };
 
@@ -43,12 +43,12 @@ export const new_render = (req, res) => {
 };
 
 export const create_post = (req, res, next) => {
-  query.create_query(req, res);
+  employee.create_employee(req, res);
   next();
 };
 
 export const edit_get = async (req, res) => {
-  const results = await query.forEdit_query(req, res);
+  const results = await employee.forEdit_employee(req, res);
   await res.render("edit.ejs", { item: results[0] });
 };
 
@@ -57,36 +57,36 @@ export const edit_get = async (req, res) => {
 // };
 
 export const update_post = async (req, res) => {
-  await query.update_query(req, res);
-  if (isSearched) {
-    search_post(req, res);
+  await employee.update_employee(req, res);
+  if (isFromList) {
+    list_get(req, res);
   } else {
-    // isSearched = false;
+    // isFromList = false;
     // const results = await get_all();
     // await res.render("index.ejs", { items: results });
-    list_get(req, res);
+    search_post(req, res);
   }
 };
 
 export const search_post = async (req, res) => {
-  isSearched = true;
-  if (searchWord === "") {
+  if (isFromList) {
     searchWord = req.body.searchName;
   }
-  const results = await query.search_query(searchWord);
+  isFromList = false;
+  const results = await employee.search_employee(searchWord);
   await res.render("search.ejs", { items: results, word: searchWord });
 };
 
 export const fromEdit_get = (req, res) => {
-  if (isSearched) {
-    search_post(req, res);
-  } else {
+  if (isFromList) {
     list_redirect(req, res);
+  } else {
+    search_post(req, res);
   }
 };
 
 export const delete_id_post = async (req, res, next) => {
-  query.delete_query(req.params.id);
+  employee.delete_employee(req.params.id);
   next();
 };
 

@@ -13,25 +13,23 @@ const connection = await mysql.createConnection({
   database: "employee",
 });
 
-let isSearched = false;
 let searchWord = "";
 
-export const get_all = async () => {
-  isSearched = false;
+export const get_all_employee = async () => {
   const [results, fields] = await connection.query(
     'SELECT * FROM basics'
   );
   return results;
 };
 
-export const create_query = async (req, res) => {
+export const create_employee = async (req, res) => {
   const [results, fields] = await connection.query(
     'INSERT INTO basics (name, department) VALUES (?, ?)',
     [req.body.employeeName, req.body.departmentName]
   );
 };
 
-export const forEdit_query = async (req, res) => {
+export const forEdit_employee = async (req, res) => {
   const [results, fields] = await connection.query(
     "SELECT * FROM basics WHERE id = ?",
     [req.params.id]
@@ -39,7 +37,7 @@ export const forEdit_query = async (req, res) => {
   return results;
 };
 
-export const update_query = async (req, res) => {
+export const update_employee = async (req, res) => {
   const [results, fields] = await connection.query(
     "UPDATE basics SET name = ?, department = ? WHERE id = ?",
     [req.body.itemName, req.body.itemDepartment, req.params.id],
@@ -47,8 +45,7 @@ export const update_query = async (req, res) => {
   return results;
 };
 
-export const search_query = async (searchWord) => {
-  isSearched = true;
+export const search_employee = async (searchWord) => {
   const likeWord = "%" + searchWord + "%";
   const [results, fields] = await connection.query(
     "SELECT * FROM basics WHERE name LIKE ?",
@@ -57,7 +54,7 @@ export const search_query = async (searchWord) => {
   return results;
 };
 
-export const delete_query = async (idToDelete) => {
+export const delete_employee = async (idToDelete) => {
   const [results, fields] = await connection.query(
     "DELETE FROM basics WHERE id = ?",
     [idToDelete]
