@@ -15,7 +15,7 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
-    command: sh -c "yarn install && yarn global add nodemon && nodemon app.js"
+    command: sh -c "yarn upgrade && yarn install && yarn global add nodemon && nodemon app.js"
 
   mysql:
     image: mysql:8.0
@@ -39,10 +39,3 @@ services:
 
 volumes:
   employee-mysql-data:
-
-
-
-
-
-
-
