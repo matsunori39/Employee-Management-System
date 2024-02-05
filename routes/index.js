@@ -1,8 +1,7 @@
 import express from "express";
 const router = express.Router();
 
-import * as controller from "../controllers/controller.js";
-// import query from "../models/model.js";
+import * as controller from "../controllers/employee.js";
 
 router.get('/', controller.top_get);
 router.get('/list', controller.loggedIn_check, controller.list_get);
